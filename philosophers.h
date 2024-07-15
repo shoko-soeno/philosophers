@@ -13,25 +13,46 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <pthread.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
-# include <unistd.h>
+# include <limits.h>
 
-struct s_rules;
+typedef pthread_mutex_t t_mtx;
+
+typedef	struct s_fork
+{
+	t_mtx	fork;
+	int		fork_id;
+}			t_fork;
 
 typedef struct s_philo
 {
 	int				id;
-	int				x_ate;
-	int				left_fork_id;
-	int				right_fork_id;
-	long long		t_last_meal;
-	struct s_rules	*rules;
+	long			meals_counter;
+	bool			full;
+	long			last_meal_time;
+	t_fork				left_fork;
+	t_fork				right_fork_id;
 	pthread_t		thread_id;
 }					t_philo;
+
+typedef struct s_table
+{
+	long	philo_nbr;
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_sleep;
+	long	nbr_limit_meals;
+	long	start_simulation;
+	bool	end_simulation;
+	t_fork	*forks;
+	t_philo	*philo;
+}			t_table;
 
 typedef struct s_rules
 {
