@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:20:22 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/16 17:49:35 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/17 15:46:08 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct s_philo
 	long			meals_counter;
 	bool			full;
 	long			last_meal_time; //time pass since last meal
-	t_fork			*left_fork;
-	t_fork			*right_fork_id;
+	t_fork			*first_fork;
+	t_fork			*second_fork;
+	t_table			*table;
 	pthread_t		thread_id; // a philo is a thread
 }					t_philo;
 
@@ -70,5 +71,13 @@ typedef struct s_table
 
 void	error_exit(const char *error);
 
+/* handle_functions.c */
+void	*safe_malloc(size_t bytes);
+void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode);
+void	safe_thread_handle(pthread_t *thread, void *(*f)(void *),
+		void *data, t_opcode opcode);
+
+/* init.c */
+void	data_init(t_table *table);
 
 #endif
