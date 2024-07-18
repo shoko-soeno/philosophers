@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:37:05 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/18 18:18:33 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:27:37 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	write_status_debug(t_philo_status status, t_philo *philo, long elapsed)
 	else if (status == EATING && !simulation_finished(philo->table))
 		printf("%-6ld %d is eating %ld\n", elapsed, philo->id, philo->meals_counter);
 	else if (status == SLEEPING && !simulation_finished(philo->table))
-		printf("%-6ld %ld is sleeping %d\n", elapsed, philo->id);
+		printf("%-6ld %d is sleeping\n", elapsed, philo->id);
 	else if (status == THINKING && !simulation_finished(philo->table))
-		printf("%-6ld %ld is thinking %d\n", elapsed, philo->id);
+		printf("%-6ld %d is thinking\n", elapsed, philo->id);
 	else if (status == DEAD && !simulation_finished(philo->table))
-		printf("%-6ld %ld died %d\n", elapsed, philo->id);
+		printf("%-6ld %d died\n", elapsed, philo->id);
 }
 
 void	write_status(t_philo_status status, t_philo *philo, bool debug)
@@ -37,7 +37,6 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 	elapsed = gettime(MILLISECOND) - philo->table->start_simulation;
 
 	if(philo->full) //thread safe
-	
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);
 	if (debug)
