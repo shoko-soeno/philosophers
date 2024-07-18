@@ -6,11 +6,26 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:06:29 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/16 17:34:36 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:51:44 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
+
+void	clean(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->philo_nbr)
+	{
+		pthread_mutex_destroy(&table->forks[i].fork);
+		i++;
+	}
+	pthread_mutex_destroy(&table->table_mutex);
+	free(table->forks);
+	free(table->philos);
+}
 
 int	main(int ac, char **av)
 {

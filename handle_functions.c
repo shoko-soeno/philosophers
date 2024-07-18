@@ -6,11 +6,11 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:05:07 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 14:06:58 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:35:57 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
 
 void	*safe_malloc(size_t bytes)
 {

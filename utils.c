@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:09:17 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 17:36:43 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:19:04 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ long	gettime(t_timecode time_code)
 }
 
 /* presice usleep */
-void	precise_usleep(long usec, t_tale *table)
+void	precise_usleep(long usec, t_table *table)
 {
 	long	start_time;
 	long	current_time;

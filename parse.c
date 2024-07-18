@@ -6,11 +6,16 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:41:13 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/16 16:15:09 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:53:42 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
 
 static long	ft_atol(const char *str)
 {
@@ -59,7 +64,7 @@ timestamps > 60 ms
 USLEEP function want usec
 */
 
-void    parse_input(t_table *table, char **av)
+void	parse_input(t_table *table, char **av)
 {
 	table->philo_nbr = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]) * 1e3; //milli seconds to micro seconds
@@ -72,33 +77,4 @@ void    parse_input(t_table *table, char **av)
 		table->nbr_limit_meals = ft_atol(av[5]);
 	else
 		table->nbr_limit_meals = -1;	
-}
-
-bool	ft_check_args(int argc, char **argv)
-{
-	int		i;
-	long	tmp;
-	char	**args;
-
-	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
-		args = argv + 1;
-	i = 0;
-	while (args[i])
-	{
-		tmp = ft_atol(args[i]);
-		if (!ft_isnum(args[i]) || ft_duplicate(tmp, args, i)
-			|| tmp < INT_MIN || tmp > INT_MAX)
-		{
-			if (argc == 2)
-				ft_free(args);
-			return (false);
-		}
-		i++;
-	}
-	if (argc == 2)
-		ft_free(args);
-	return (true);
 }

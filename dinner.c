@@ -6,11 +6,16 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:47:16 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 18:40:12 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:35:38 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
+
+static void	thinking(t_philo *philo)
+{
+	write_status(THINKING, philo, DEBUG_MODE);
+}
 
 static void	eat(t_philo *philo)
 {
@@ -19,7 +24,7 @@ static void	eat(t_philo *philo)
 	safe_mutex_handle(&philo->second_fork->fork, LOCK);
 	write_status(TAKE_SECOND_FORK, philo, DEBUG_MODE);
 	
-	set_long(&philo->philo_mutex, gettime(MILLISECOND));
+	set_long(&philo->philo_mutex, &philo->last_meal_time, gettime(MILLISECOND));
 	philo->meals_counter++;
 	write_status(EATING, philo, DEBUG_MODE);
 	precise_usleep(philo->table->time_to_eat, philo->table);
@@ -36,7 +41,7 @@ void	*dinner_simulation(void *data)
 
 	philo = (t_philo *)data;
 
-	waite_all_threads_ready(philo->table); //spinlock
+	wait_all_threads_ready(philo->table); //spinlock
 	
 	//set last meal time
 	

@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:47:36 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 16:52:04 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:30:44 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_long(t_mtx *mutex, long *dest, long value)
 	safe_mutex_handle(mutex, UNLOCK);
 }
 
-long	get_long(t_mtx *mutex, long = *src)
+long	get_long(t_mtx *mutex, long *src)
 {
 	bool	ret;
 

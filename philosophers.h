@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:20:22 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 18:34:54 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:16:17 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef enum e_status
 }		t_philo_status;
 
 typedef pthread_mutex_t t_mtx;
-typedef struct s_table;
+typedef struct s_table t_table;
 
 typedef	struct s_fork
 {
@@ -87,13 +87,16 @@ typedef struct s_table
 	bool	end_simulation; //all philo die or all ate
 	bool	all_threads_ready;
 	t_mtx	table_mutex; //avoid races while reading form table
-	t_mtx	*write_mutex;
+	t_mtx	write_mutex;
 	t_fork	*forks;
 	t_philo	*philos;
 }			t_table;
 
 
 void	error_exit(const char *error);
+
+/* parse */
+void	parse_input(t_table *table, char **av);
 
 /* handle_functions.c */
 void	*safe_malloc(size_t bytes);
@@ -111,7 +114,19 @@ void	set_long(t_mtx *mutex, long *dest, long value);
 long	get_long(t_mtx *mutex, long *src);
 bool	simulation_finished(t_table *table);
 
+/* dinner */
+void	*dinner_simulation(void *data);
+void	dinner_start(t_table *table);
+
+/* write.c */
+void	write_status_debug(t_philo_status status, t_philo *philo, long elapsed);
+void	write_status(t_philo_status status, t_philo *philo, bool debug);
+
 /* synchro_utils.c */
 void	wait_all_threads_ready(t_table *table);
+
+/* utils */
+long	gettime(t_timecode time_code);
+void	precise_usleep(long usec, t_table *table);
 
 #endif
