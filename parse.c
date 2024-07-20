@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:41:13 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/18 17:53:42 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/20 12:48:42 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static long	ft_atol(const char *str)
 		str++;
 	if (*str == '-' || *str == '+')
 		if (*str++ == '-')
-			sign = -1l;
+			error_exit("Please input only positive numbers");
+	if (*str == '\0')
+		error_exit("Please input a number");
 	while (ft_isdigit(*str))
 	{
 		if (ret > LONG_MAX / 10 || (ret == LONG_MAX / 10 && *str > '7'))
@@ -40,25 +42,6 @@ static long	ft_atol(const char *str)
 	return (ret);
 }
 
-bool	ft_is_positive_num(char *num)
-{
-	size_t	i;
-
-	i = 0;
-	if (num[0] == '-')
-		return (false);
-	if (num[0] == '+')
-		i++;
-	if (num[i] == '\0')
-		return (false);
-	while (num[i])
-	{
-		if (!ft_isdigit(num[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
 /* ./philo
 timestamps > 60 ms
 USLEEP function want usec
@@ -70,11 +53,20 @@ void	parse_input(t_table *table, char **av)
 	table->time_to_die = ft_atol(av[2]) * 1e3; //milli seconds to micro seconds
 	table->time_to_eat = ft_atol(av[3]) * 1e3;
 	table->time_to_sleep = ft_atol(av[4]) * 1e3;
+	//debug
+	printf("philo_nbr: %ld\n", table->philo_nbr);
+	printf("time_to_die: %ld\n", table->time_to_die);
+	printf("time_to_eat: %ld\n", table->time_to_eat);
+	printf("time_to_sleep: %ld\n", table->time_to_sleep);
+
 	if (table->time_to_die < 6e4 || table->time_to_eat < 6e4
 		|| table->time_to_sleep < 6e4)
 		error_exit("Time must be greater than 60 ms");
 	if (av[5])
 		table->nbr_limit_meals = ft_atol(av[5]);
 	else
-		table->nbr_limit_meals = -1;	
+		table->nbr_limit_meals = -1;
+
+	//debug
+	printf("nbr_limit_meals: %ld\n", table->nbr_limit_meals);
 }

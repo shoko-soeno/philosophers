@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 18:15:00 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/17 18:35:36 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/20 15:15:53 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 		philo->first_fork = &forks[philo_position];
 		philo->second_fork = &forks[(philo_position + 1) % philo_nbr];
 	}
-	
+	printf("assign_forks\n"); //debug
+	printf("philo_id: %d\n", philo->id);
+	printf("philo_first_fork: %p\n", philo->first_fork);
+	printf("philo_second_fork: %p\n", philo->second_fork);
+	printf("philo_philo_position: %d\n", philo_position);
+	// printf("philo_philo_table: %p\n", philo->table);
 }
 
 static void		philo_init(t_table *table)
@@ -42,6 +47,14 @@ static void		philo_init(t_table *table)
 		philo->table = table;
 		safe_mutex_handle(&philo->philo_mutex, INIT);
 		assign_forks(philo, table->forks, i);
+		//debug
+		printf("philo init\n");
+		printf("philo_id: %d\n", philo->id);
+		printf("philo_meals_counter: %ld\n", philo->meals_counter);
+		printf("philo_table: %p\n", philo->table);
+		printf("philo_first_fork: %p\n", philo->first_fork);
+		printf("philo_second_fork: %p\n", philo->second_fork);
+		printf("philo_philo_mutex: %p\n", &philo->philo_mutex);
 	}
 	
 }
@@ -52,13 +65,17 @@ void	data_init(t_table *table)
 
 	i = -1;
 	table->end_simulation = false;
+	table->all_threads_ready = false;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	safe_mutex_handle(&table->table_mutex, INIT);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
+	printf("data init\n"); //debug
 	while (++i < table->philo_nbr)
 	{
 		safe_mutex_handle(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
+		//debug
+		printf("fork_id: %d\n", table->forks[i].fork_id);
 	}
 	philo_init(table);
 }

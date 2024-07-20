@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:09:17 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/18 17:19:04 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/20 16:00:38 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,26 @@ long	gettime(t_timecode time_code)
 void	precise_usleep(long usec, t_table *table)
 {
 	long	start_time;
-	long	current_time;
+	long	elapsed;
 	long	remaining;
 
 	start_time = gettime(MICROSECOND);
-	current_time = start_time;
-	while (current_time - start_time < usec)
+	while (gettime(MICROSECOND) - start_time < usec)
 	{
 		if (simulation_finished(table))
 			break ;
-		usleep(100);
-		current_time = gettime(MICROSECOND);
-		remaining = usec - (current_time - start_time);
+		elapsed = gettime(MICROSECOND) - start_time;
+		remaining = usec - elapsed;
 		//to get a spinlock threshold
-		if (remaining < 1000)
+		if (remaining < 1e3)
 			usleep(remaining/2);
 		else
 		{
-			//spinlock
+			//refine last microsec with spinlock
 			while (gettime(MICROSECOND) - start_time < usec)
-				;
+			{
+				printf("waiting for precise usleep\n"); //debug
+			}
 		}
 	}
 }

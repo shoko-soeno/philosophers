@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:05:07 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/18 17:35:57 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/20 16:37:38 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 		handle_mutex_error(pthread_mutex_destroy(mutex), opcode);
 	else
 		error_exit("Invalid opcode for mutex handle");
+	printf("safe_mutex_handle: mutex %p\n", mutex); //debug
+	return ;
 }
 
 static void	handle_thread_error(int status, t_opcode opcode)

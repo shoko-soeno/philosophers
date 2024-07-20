@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:37:05 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/18 18:27:37 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/20 16:47:07 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,15 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 	long	elapsed;
 
 	elapsed = gettime(MILLISECOND) - philo->table->start_simulation;
-
+	printf("write_status: philo %d\n", philo->id); //debug
+	printf("write_status: elapsed %ld\n", elapsed); //debug
+	printf("write_status: philo->full %d\n", philo->full); //debug
+	//printf("write_status: simulation_finished %d\n", simulation_finished(philo->table)); //debug
+	printf("write_status: status %d\n", status); //debug
 	if(philo->full) //thread safe
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);
+	printf("write_status: write_mutex %p\n", &philo->table->write_mutex); //debug
 	if (debug)
 		write_status_debug(status, philo, elapsed);
 	else
@@ -56,4 +61,5 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 			printf("%-6ld %d died\n", elapsed, philo->id);
 	}
 	safe_mutex_handle(&philo->table->write_mutex, UNLOCK);
+	printf("write_status fuction finished\n"); //debug
 }
