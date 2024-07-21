@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:06:29 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/20 14:21:29 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/21 15:58:36 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ int	main(int ac, char **av)
 	{
 		parse_input(&table, av);
 		//debug
-		printf("philo_nbr: %ld\n", table.philo_nbr);
+		printf("before data init***********philo_nbr: %ld\n", table.philo_nbr);
 		data_init(&table);
 		//debug
-		printf("philo_nbr: %ld\n", table.philo_nbr);
+		printf("before dinner start***************philo_nbr: %ld\n", table.philo_nbr);
 		dinner_start(&table);
 		//debug
-		printf("philo_nbr: %ld\n", table.philo_nbr);
+		printf("before clean****************philo_nbr: %ld\n", table.philo_nbr);
 		clean(&table);
 	} else
 	{

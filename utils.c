@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:09:17 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/20 16:00:38 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/21 14:16:33 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ void	precise_usleep(long usec, t_table *table)
 		elapsed = gettime(MICROSECOND) - start_time;
 		remaining = usec - elapsed;
 		//to get a spinlock threshold
-		if (remaining < 1e3)
+		if (remaining > 1e3)
 			usleep(remaining/2);
 		else
 		{
 			//refine last microsec with spinlock
 			while (gettime(MICROSECOND) - start_time < usec)
 			{
-				printf("waiting for precise usleep\n"); //debug
+				// printf("waiting for precise usleep\n"); //debug
+				;
 			}
 		}
 	}

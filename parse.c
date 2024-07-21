@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:41:13 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/20 12:48:42 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/21 11:16:28 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	parse_input(t_table *table, char **av)
 	printf("time_to_die: %ld\n", table->time_to_die);
 	printf("time_to_eat: %ld\n", table->time_to_eat);
 	printf("time_to_sleep: %ld\n", table->time_to_sleep);
+	//printf("time_to_die: %ld\n", table->time_to_die);
 
 	if (table->time_to_die < 6e4 || table->time_to_eat < 6e4
 		|| table->time_to_sleep < 6e4)
