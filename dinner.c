@@ -6,7 +6,7 @@
 /*   By: ssoeno <ssoeno@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:47:16 by ssoeno            #+#    #+#             */
-/*   Updated: 2024/07/21 14:41:31 by ssoeno           ###   ########.fr       */
+/*   Updated: 2024/07/21 16:19:50 by ssoeno           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void	dinner_start(t_table *table)
 {
 	int	i;
 	
+	// Initialize thread_id for each philosopher
+    for (i = 0; i < table->philo_nbr; ++i) {
+        table->philos[i].thread_id = 0;
+    }
 	i = -1;
 	if (table->nbr_limit_meals == 0)
 		return ;
