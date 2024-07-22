@@ -17,9 +17,9 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 	int philo_nbr;
 	
 	philo_nbr = philo->table->philo_nbr;
-	printf("assign_forks***************************\n"); //debug
-	printf("philo_position: %d\n", philo_position); //debug
-	printf("philo_id: %d\n", philo->id);
+	// printf("assign_forks***************************\n"); //debug
+	// printf("philo_position: %d\n", philo_position); //debug
+	// printf("philo_id: %d\n", philo->id);
 	if (philo->id % 2 == 0)
 	{
 		philo->first_fork = &forks[philo_position];
@@ -30,8 +30,8 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int philo_position)
 		philo->first_fork = &forks[(philo_position + 1) % philo_nbr];
 		philo->second_fork = &forks[philo_position];
 	}
-	printf("philo_first_fork: %p\n", philo->first_fork);
-	printf("philo_second_fork: %p\n", philo->second_fork);
+	// printf("philo_first_fork: %p\n", philo->first_fork);
+	// printf("philo_second_fork: %p\n", philo->second_fork);
 	// printf("philo_philo_position: %d\n", philo_position);
 	// printf("philo_philo_table: %p\n", philo->table);
 }
@@ -73,13 +73,13 @@ void	data_init(t_table *table)
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	safe_mutex_handle(&table->table_mutex, INIT);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
-	printf("data init*****************************\n"); //debug
+	// printf("data init*****************************\n"); //debug
 	while (++i < table->philo_nbr)
 	{
 		safe_mutex_handle(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;
 		//debug
-		printf("fork_id: %d\n", table->forks[i].fork_id);
+		// printf("fork_id: %d\n", table->forks[i].fork_id);
 	}
 	philo_init(table);
 }

@@ -41,7 +41,7 @@ void	write_status(t_philo_status status, t_philo *philo, bool debug)
 	// printf("write_status: philo->full %d\n", philo->full); //debug
 	// //printf("write_status: simulation_finished %d\n", simulation_finished(philo->table)); //debug
 	// printf("write_status: status %d\n", status); //debug
-	if(!philo->full) //thread safe
+	if(philo->full) //thread safe
 		return ;
 	safe_mutex_handle(&philo->table->write_mutex, LOCK);
 	//printf("write_status: write_mutex %p\n", &philo->table->write_mutex); //debug

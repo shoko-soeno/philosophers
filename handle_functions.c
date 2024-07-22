@@ -73,30 +73,37 @@ void	safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	return ;
 }
 
-static void	handle_thread_error(int status, t_opcode opcode)
-{
-	printf("handle_thread_error: status %d\n", status); //debug
-	if (status == 0)
-		return ;
-	if (status == EAGAIN)
-		error_exit("Insufficient resources to create another thread");
-	else if (status == EPERM)
-		error_exit("The caller does not have appropriate permission");
-	else if (status == EINVAL && opcode == CREATE)
-		error_exit("The value specified by attr is invalid");
-	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
-		error_exit("The value specified by thread is invalid");
-	else if (status == ESRCH)
-		error_exit("No thread with the ID thread could be found");
-	else if (status == EDEADLK)
-		error_exit("A deadlock was detected");
+void handle_thread_error(int status, t_opcode opcode) {
+    if (status != 0) {
+        fprintf(stderr, "Thread error (opcode %d): %s\n", opcode, strerror(status));
+        exit(EXIT_FAILURE);
+    }
 }
+
+// static void	handle_thread_error(int status, t_opcode opcode)
+// {
+// 	printf("handle_thread_error: status %d\n", status); //debug
+// 	if (status == 0)
+// 		return ;
+// 	if (status == EAGAIN)
+// 		error_exit("Insufficient resources to create another thread");
+// 	else if (status == EPERM)
+// 		error_exit("The caller does not have appropriate permission");
+// 	else if (status == EINVAL && opcode == CREATE)
+// 		error_exit("The value specified by attr is invalid");
+// 	else if (status == EINVAL && (opcode == JOIN || opcode == DETACH))
+// 		error_exit("The value specified by thread is invalid");
+// 	else if (status == ESRCH)
+// 		error_exit("No thread with the ID thread could be found");
+// 	else if (status == EDEADLK)
+// 		error_exit("A deadlock was detected");
+// }
 
 void	safe_thread_handle(pthread_t *thread, void *(*f)(void *),
 		void *data, t_opcode opcode)
 {
-	printf("safe_thread_handle: thread %p\n", thread); //debug
-	printf("safe_thread_handle: opcode %d\n", opcode); //debug
+	// printf("safe_thread_handle: thread %p\n", thread); //debug
+	// printf("safe_thread_handle: opcode %d\n", opcode); //debug
 	int result;
 	
 	if (opcode == CREATE)
